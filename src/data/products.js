@@ -12,6 +12,8 @@ export const CATEGORIES = [
     { id: 'hamburguesas', name: 'Hamburguesas', icon: '🍔' },
     { id: 'pizzas', name: 'Pizzas', icon: '🍕' },
     { id: 'menu_dia', name: 'Menú del Día', icon: '🍱' },
+    { id: 'platos_carta', name: 'Platos a la Carta', icon: '🍽️' },
+    { id: 'recomendaciones', name: 'Recomendaciones', icon: '👨‍🍳' },
     { id: 'bebidas', name: 'Bebidas', icon: '🥤' },
     { id: 'postres', name: 'Postres', icon: '🍰' },
     { id: 'ofertas', name: 'Ofertas', icon: '🔥' },
@@ -31,6 +33,18 @@ export const PRODUCTS = [
     { id: 402, category: 'pizzas', name: 'Pizza Hawaiana', price: 32.00, image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=500&auto=format&fit=crop', description: 'La clásica combinación de piña, jamón seleccionado y extra queso.' },
     { id: 403, category: 'pizzas', name: 'Pizza Suprema', price: 40.00, image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=500&auto=format&fit=crop', description: 'Cargada con carne de res, pimentón, cebolla, aceitunas y champiñones.' },
     { id: 404, category: 'pizzas', name: 'Pizza Margarita', price: 28.00, image: 'https://images.unsplash.com/photo-1574071318508-1cdbcd80ad51?q=80&w=500&auto=format&fit=crop', description: 'Sencillez elegante: albahaca fresca, rodajas de tomate y mozzarella premium.' },
+
+    // Platos a la Carta
+    { id: 601, category: 'platos_carta', name: 'Fettuccine a la Huancaína', price: 35.00, image: 'https://images.unsplash.com/photo-1473093226795-af9932fe5856?q=80&w=500&auto=format&fit=crop', description: 'Fettuccine en salsa huancaína cremosa acompañado de un jugoso lomo saltado.' },
+    { id: 602, category: 'platos_carta', name: 'Ceviche de Pescado', price: 38.00, image: 'https://images.unsplash.com/photo-1534604973900-c41ab4c5e636?q=80&w=500&auto=format&fit=crop', description: 'Fresco ceviche de corvina marinado en limón de piura, camote y choclo.' },
+    { id: 603, category: 'platos_carta', name: 'Tacu Tacu con Lomo', price: 34.00, image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=500&auto=format&fit=crop', description: 'Tradicional mezcla de arroz y frejoles fritos con lomo al jugo.' },
+    { id: 604, category: 'platos_carta', name: 'Seco de Cordero', price: 42.00, image: 'https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=500&auto=format&fit=crop', description: 'Tierno cordero guisado en salsa de culantro y chicha de jora, con frejoles y arroz.' },
+    { id: 605, category: 'platos_carta', name: 'Pollo a la Brasa (1/4)', price: 24.00, image: 'https://images.unsplash.com/photo-1598103442097-8b74394b95c6?q=80&w=500&auto=format&fit=crop', description: 'Nuestro clásico pollo a la brasa con papas fritas crocantes y ensalada fresca.' },
+
+    // Recomendaciones del Chef
+    { id: 701, category: 'recomendaciones', name: 'Risotto de Champiñones', price: 45.00, image: 'https://images.unsplash.com/photo-1476124369491-e7addf5db371?q=80&w=500&auto=format&fit=crop', description: 'Arroz arborio cremoso con variedad de setas silvestres y aceite de trufa.' },
+    { id: 702, category: 'recomendaciones', name: 'Salmon Glaseado', price: 55.00, image: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?q=80&w=500&auto=format&fit=crop', description: 'Salmón fresco con glaseado cítrico, puré de arvejas y vegetales baby.' },
+    { id: 703, category: 'recomendaciones', name: 'Costillas BBQ Premium', price: 48.00, image: 'https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=500&auto=format&fit=crop', description: 'Costillas de cerdo cocidas a baja temperatura por 12 horas con salsa BBQ secreta.' },
 
     // Menú del Día
     { id: 501, category: 'menu_dia', name: 'Lomo Saltado', price: 25.00, image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=500&auto=format&fit=crop', description: 'Trozo de lomo fino saltado al wok con cebolla, tomate, acompañado de arroz y papas fritas.' },
