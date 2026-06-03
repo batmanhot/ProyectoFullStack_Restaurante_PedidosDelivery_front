@@ -16,6 +16,8 @@ export const CATEGORIES = [
     { id: 'recomendaciones', name: 'Recomendaciones', icon: '👨‍🍳' },
     { id: 'bebidas', name: 'Bebidas', icon: '🥤' },
     { id: 'postres', name: 'Postres', icon: '🍰' },
+    { id: 'ensaladas', name: 'Ensaladas', icon: '🥗' },
+    { id: 'complementos', name: 'Complementos', icon: '🍟' },
     { id: 'ofertas', name: 'Ofertas', icon: '🔥' },
 ];
 
@@ -59,6 +61,19 @@ export const PRODUCTS = [
     // Postres
     { id: 201, category: 'postres', name: 'Tres Leches', price: 12.00, image: 'https://images.unsplash.com/photo-1549440386-30238ee59819?q=80&w=500&auto=format&fit=crop', description: 'Bizcocho bañado en tres tipos de leche, super húmedo.' },
     { id: 202, category: 'postres', name: 'Brownie con Helado', price: 15.00, image: 'https://images.unsplash.com/photo-1564355808539-22fda35bed7e?q=80&w=500&auto=format&fit=crop', description: 'Brownie melcochudo de chocolate con una bola de helado de vainilla.' },
+
+    // Ensaladas
+    { id: 801, category: 'ensaladas', name: 'Ensalada César', price: 25.00, image: 'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?q=80&w=500&auto=format&fit=crop', description: 'Pechuga de pollo a la brasa, lechuga romana, croutones, queso parmesano y salsa César.' },
+    { id: 802, category: 'ensaladas', name: 'Ensalada Mediterránea', price: 22.00, image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=500&auto=format&fit=crop', description: 'Mix de lechugas, tomate cherry, pepino, aceitunas negras, queso feta y vinagreta balsámica.' },
+    { id: 803, category: 'ensaladas', name: 'Ensalada de Quinoa', price: 24.00, image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=500&auto=format&fit=crop', description: 'Quinoa orgánica, palta, tomate cherry, choclo, perejil y aliño de limón.' },
+
+    // Complementos
+    { id: 901, category: 'complementos', name: 'Vaso de Chicha Morada', price: 4.00, image: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?q=80&w=500&auto=format&fit=crop', description: 'Refrescante vaso de chicha morada artesanal.' },
+    { id: 902, category: 'complementos', name: 'Canchita Serrana', price: 3.00, image: 'https://images.unsplash.com/photo-1599487488170-d11ec93a730d?q=80&w=500&auto=format&fit=crop', description: 'Porción de canchita recién tostada y saladita.' },
+    { id: 903, category: 'complementos', name: 'Crema de Ají de la Casa', price: 2.00, image: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=500&auto=format&fit=crop', description: 'Nuestro ají especial secreto, ideal para acompañar.' },
+    { id: 904, category: 'complementos', name: 'Mayonesa Artesanal', price: 2.00, image: 'https://images.unsplash.com/photo-1588860322c02-422026e5fc3a?q=80&w=500&auto=format&fit=crop', description: 'Mayonesa cremosa hecha en casa.' },
+    { id: 905, category: 'complementos', name: 'Salsa Huancaína', price: 3.00, image: 'https://images.unsplash.com/photo-1590137876181-2a5a7e34030d?q=80&w=500&auto=format&fit=crop', description: 'Clásica salsa peruana a base de ají amarillo y queso.' },
+    { id: 906, category: 'complementos', name: 'Porción de Ají Parrillero', price: 2.50, image: 'https://images.unsplash.com/photo-1528605105345-5344ea20e269?q=80&w=500&auto=format&fit=crop', description: 'Ají con hierbas finas, perfecto para carnes.' },
 
     // Ofertas
     { id: 301, category: 'ofertas', name: 'Combo Duplo Familiar', price: 65.00, image: 'https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?q=80&w=500&auto=format&fit=crop', description: '2 Cheese Burger Duplo + 2 Papas Fritas + 1 Gaseosa 1.5L.' },

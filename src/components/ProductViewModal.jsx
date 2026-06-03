@@ -1,3 +1,5 @@
+import { formatMoney } from '../utils/format';
+
 const ProductViewModal = ({ product, isOpen, onClose, onAddToCart }) => {
     if (!isOpen || !product) return null;
 
@@ -23,7 +25,7 @@ const ProductViewModal = ({ product, isOpen, onClose, onAddToCart }) => {
                 <div className="p-8">
                     <div className="flex justify-between items-start mb-4">
                         <h2 className="text-3xl font-black text-gray-800">{product.name}</h2>
-                        <span className="text-3xl font-black text-green-600">S/. {product.price.toFixed(2)}</span>
+                        <span className="text-3xl font-black text-green-600">{formatMoney(product.price)}</span>
                     </div>
 
                     <p className="text-gray-500 text-lg leading-relaxed mb-8">

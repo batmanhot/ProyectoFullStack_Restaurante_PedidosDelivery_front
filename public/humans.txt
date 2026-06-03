@@ -1,0 +1,24 @@
+/* Made by Doña Nella Team */
+/* https://tudominio.com */
+
+---
+
+Nombre: Doña Nella
+Ubicación: Lima, Perú
+Dirección: Av. Las Flores 123, Lima, Perú
+Teléfono: +51 951 655 295
+Email: batmanponte@gmail.com
+
+---
+
+Tecnología:
+- Frontend: React + Vite
+- Lenguaje: JavaScript/JSX
+- Hosting: [Tu proveedor de hosting]
+
+---
+
+Agradecimientos:
+- Google Fonts: Poppins
+- Vite Team
+- React Team

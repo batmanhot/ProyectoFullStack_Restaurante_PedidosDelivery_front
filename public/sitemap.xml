@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    <!-- Página Principal -->
+    <url>
+        <loc>https://tudominio.com</loc>
+        <lastmod>2026-06-03</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+        <image:image>
+            <image:loc>https://tudominio.com/images/hamburguesa-1.avif</image:loc>
+            <image:title>Doña Nella - Hamburguesas Artesanales</image:title>
+        </image:image>
+    </url>
+    
+    <!-- Página de Menú/Productos -->
+    <url>
+        <loc>https://tudominio.com/menu</loc>
+        <lastmod>2026-06-03</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+        <image:image>
+            <image:loc>https://tudominio.com/images/hamburguesa-2.avif</image:loc>
+            <image:title>Menú Completo - Doña Nella</image:title>
+        </image:image>
+    </url>
+    
+    <!-- Página de Categorías -->
+    <url>
+        <loc>https://tudominio.com/hamburguesas</loc>
+        <lastmod>2026-06-03</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://tudominio.com/pizzas</loc>
+        <lastmod>2026-06-03</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://tudominio.com/platos-carta</loc>
+        <lastmod>2026-06-03</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- Página de Ofertas -->
+    <url>
+        <loc>https://tudominio.com/ofertas</loc>
+        <lastmod>2026-06-03</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- Página de Contacto -->
+    <url>
+        <loc>https://tudominio.com/contacto</loc>
+        <lastmod>2026-06-03</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- Página de Nosotros -->
+    <url>
+        <loc>https://tudominio.com/nosotros</loc>
+        <lastmod>2026-06-03</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+</urlset>

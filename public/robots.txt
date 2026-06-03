@@ -1,0 +1,25 @@
+# Robots.txt for Doña Nella
+# Permite a los motores de búsqueda indexar el sitio
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.json$
+
+# Crawl-delay para evitar sobrecargar el servidor (en segundos)
+Crawl-delay: 1
+
+# Request-rate para limitar las solicitudes
+Request-rate: 30/60
+
+# Sitemap
+Sitemap: https://tudominio.com/sitemap.xml
+
+# Google Search Console
+User-agent: Googlebot
+Allow: /
+
+# Bing Search
+User-agent: Bingbot
+Allow: /
