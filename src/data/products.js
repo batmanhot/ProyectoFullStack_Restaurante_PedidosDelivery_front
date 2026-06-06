@@ -2,7 +2,8 @@ export const BUSINESS_INFO = {
     nombre: 'DOÑA NELLA',
     logo: '/images/hamburguesa-logo.png',
     direccion: 'Av. Las Flores 123, Lima, Perú',
-    slogan: '¡La mejores hamburguesas de Lima!',
+    slogan: 'Restaurante Delivery Multicategoría · Todo tu antojo en un solo lugar',
+    tagline: 'Todo tu antojo en un solo lugar',
     whatsapp: '51951655295',
     email: 'batmanponte@gmail.com',
     horario: 'Lunes a Domingo de 11:00 a 22:00',
@@ -10,6 +11,8 @@ export const BUSINESS_INFO = {
 
 export const CATEGORIES = [
     { id: 'hamburguesas', name: 'Hamburguesas', icon: '🍔' },
+    { id: 'salchipapas', name: 'Salchipapas', icon: '🍟' },
+    { id: 'broasters', name: 'Broasters', icon: '🍗' },
     { id: 'pizzas', name: 'Pizzas', icon: '🍕' },
     { id: 'menu_dia', name: 'Menú del Día', icon: '🍱' },
     { id: 'platos_carta', name: 'Platos a la Carta', icon: '🍽️' },
@@ -17,8 +20,9 @@ export const CATEGORIES = [
     { id: 'bebidas', name: 'Bebidas', icon: '🥤' },
     { id: 'postres', name: 'Postres', icon: '🍰' },
     { id: 'ensaladas', name: 'Ensaladas', icon: '🥗' },
-    { id: 'complementos', name: 'Complementos', icon: '🍟' },
+    { id: 'complementos', name: 'Complementos', icon: '🧂' },
     { id: 'ofertas', name: 'Ofertas', icon: '🔥' },
+    { id: 'combos', name: 'Combos', icon: '🎁' },
 ];
 
 export const PRODUCTS = [
@@ -75,6 +79,21 @@ export const PRODUCTS = [
     { id: 905, category: 'complementos', name: 'Salsa Huancaína', price: 3.00, image: 'https://images.unsplash.com/photo-1590137876181-2a5a7e34030d?q=80&w=500&auto=format&fit=crop', description: 'Clásica salsa peruana a base de ají amarillo y queso.' },
     { id: 906, category: 'complementos', name: 'Porción de Ají Parrillero', price: 2.50, image: 'https://images.unsplash.com/photo-1528605105345-5344ea20e269?q=80&w=500&auto=format&fit=crop', description: 'Ají con hierbas finas, perfecto para carnes.' },
 
-    // Ofertas
-    { id: 301, category: 'ofertas', name: 'Combo Duplo Familiar', price: 65.00, image: 'https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?q=80&w=500&auto=format&fit=crop', description: '2 Cheese Burger Duplo + 2 Papas Fritas + 1 Gaseosa 1.5L.' },
+    // Ofertas / Combos
+    { id: 301, category: 'ofertas', name: 'Combo Duplo Familiar', price: 65.00, image: 'https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?q=80&w=500&auto=format&fit=crop', description: '2 Cheese Burger Duplo + 2 Papas Fritas + 1 Gaseosa 1.5L.', badge: 'oferta', featured: true },
+    { id: 302, category: 'ofertas', name: 'Combo Personal', price: 38.00, image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=500&auto=format&fit=crop', description: '1 Hamburguesa a tu elección + 1 Gaseosa 500ml. ¡Ahorra S/7!', badge: 'oferta' },
+    { id: 303, category: 'ofertas', name: 'Combo Dúo', price: 72.00, image: 'https://images.unsplash.com/photo-1586816001966-79b736744398?q=80&w=500&auto=format&fit=crop', description: '2 Hamburguesas + 2 Salchipapas Especiales + 2 Gaseosas. ¡Ahorra S/16!', badge: 'oferta' },
+    { id: 304, category: 'ofertas', name: 'Combo Broaster Familiar', price: 58.00, image: 'https://images.unsplash.com/photo-1562967914-608f82629710?q=80&w=500&auto=format&fit=crop', description: '1/2 Pollo Broaster + Papas Grandes + 2 Gaseosas + Cremas. ¡Ahorra S/12!', badge: 'oferta' },
+
+    // Salchipapas
+    { id: 1001, category: 'salchipapas', name: 'Salchipapa Simple', price: 12.00, image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&w=500&auto=format&fit=crop', description: 'Papas fritas crocantes con rodajas de salchicha. Incluye crema de ají.', featured: true, badge: 'popular' },
+    { id: 1002, category: 'salchipapas', name: 'Salchipapa Especial', price: 16.00, image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&w=500&auto=format&fit=crop', description: 'Papas fritas + salchicha + huevo frito + mostaza + ketchup + mayonesa de la casa.' },
+    { id: 1003, category: 'salchipapas', name: 'Salchipapa XXL', price: 22.00, image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&w=500&auto=format&fit=crop', description: 'Porción XL de papas fritas con doble salchicha, huevo, queso fundido y cremas especiales.' },
+    { id: 1004, category: 'salchipapas', name: 'Salchipapa con Pollo', price: 18.00, image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&w=500&auto=format&fit=crop', description: 'Papas fritas + tiras de pollo crocante + salchicha + cremas de la casa.' },
+
+    // Broasters
+    { id: 1101, category: 'broasters', name: 'Cuarto de Pollo Broaster', price: 18.00, image: 'https://images.unsplash.com/photo-1562967914-608f82629710?q=80&w=500&auto=format&fit=crop', description: '1/4 de pollo broaster dorado y crocante. Con papas y ensalada.', featured: true, badge: 'popular' },
+    { id: 1102, category: 'broasters', name: 'Medio Pollo Broaster', price: 32.00, image: 'https://images.unsplash.com/photo-1562967914-608f82629710?q=80&w=500&auto=format&fit=crop', description: '1/2 pollo broaster con papas fritas grandes, ensalada y cremas especiales.' },
+    { id: 1103, category: 'broasters', name: 'Pollo Broaster Entero', price: 58.00, image: 'https://images.unsplash.com/photo-1562967914-608f82629710?q=80&w=500&auto=format&fit=crop', description: 'Pollo entero broaster dorado a la perfección. Con 2 porciones de papas, ensalada y cremas.' },
+    { id: 1104, category: 'broasters', name: 'Alitas Broaster x6', price: 22.00, image: 'https://images.unsplash.com/photo-1562967914-608f82629710?q=80&w=500&auto=format&fit=crop', description: '6 alitas de pollo broaster extra crocantes. Con salsa BBQ o crema de ají.' },
 ];

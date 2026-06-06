@@ -2,8 +2,24 @@ import { storage } from './storageService';
 import { PRODUCTS, CATEGORIES } from '../data/products';
 
 const seed = () => {
-  if (!storage.get('products')) storage.set('products', PRODUCTS);
-  if (!storage.get('categories')) storage.set('categories', CATEGORIES);
+  const storedProducts = storage.get('products');
+  const storedCats = storage.get('categories');
+
+  if (!storedProducts) {
+    storage.set('products', PRODUCTS);
+  } else {
+    const existingIds = new Set(storedProducts.map(p => p.id));
+    const newProducts = PRODUCTS.filter(p => !existingIds.has(p.id));
+    if (newProducts.length > 0) storage.set('products', [...storedProducts, ...newProducts]);
+  }
+
+  if (!storedCats) {
+    storage.set('categories', CATEGORIES);
+  } else {
+    const existingCatIds = new Set(storedCats.map(c => c.id));
+    const newCats = CATEGORIES.filter(c => !existingCatIds.has(c.id));
+    if (newCats.length > 0) storage.set('categories', [...storedCats, ...newCats]);
+  }
 };
 
 export const productService = {
@@ -19,7 +35,7 @@ export const productService = {
 
   addProduct: (data) => {
     const products = productService.getProducts();
-    const newProduct = { ...data, id: Date.now(), available: true, createdAt: new Date().toISOString() };
+    const newProduct = { id: Date.now(), available: true, createdAt: new Date().toISOString(), ...data };
     storage.set('products', [...products, newProduct]);
     return newProduct;
   },
@@ -58,8 +74,8 @@ export const productService = {
     const products = productService.getProducts().filter(p => p.available !== false);
     const featured = products.filter(p => p.featured);
     if (featured.length > 0) return featured;
-    // fallback: primer producto de las 4 categorías más importantes
-    const priority = ['hamburguesas', 'pizzas', 'recomendaciones', 'menu_dia', 'platos_carta', 'ofertas'];
+    // fallback: primer producto de las categorías más importantes
+    const priority = ['hamburguesas', 'salchipapas', 'broasters', 'ofertas', 'platos_carta', 'recomendaciones', 'menu_dia', 'pizzas'];
     const fallback = [];
     priority.forEach(cat => {
       const p = products.find(x => x.category === cat);

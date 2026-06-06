@@ -1,10 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useApp } from '../context/AppContext';
 import { orderService, ORDER_STATUS } from '../services/orderService';
-import { STATUS_LABELS } from '../constants/orderStatus';
-import DeliveryAlert from '../components/DeliveryAlert';
 import { formatMoney } from '../utils/format';
 
 const STATUS_STEPS = [
@@ -165,11 +163,24 @@ const MyOrdersPage = () => {
   const [orders, setOrders] = useState([]);
   const [filter, setFilter] = useState('activos');
 
-  useEffect(() => {
+  const loadOrders = useCallback(() => {
     const userOrders = orderService.getOrdersByUser(user.id)
       .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     setOrders(userOrders);
   }, [user.id]);
+
+  useEffect(() => {
+    loadOrders();
+    const interval = setInterval(loadOrders, 5000);
+    const onStorage = (e) => {
+      if (e.key === 'bq_orders' || e.key === null) loadOrders();
+    };
+    window.addEventListener('storage', onStorage);
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('storage', onStorage);
+    };
+  }, [loadOrders]);
 
   const activeOrders = orders.filter(o =>
     ![ORDER_STATUS.DELIVERED, ORDER_STATUS.CANCELLED].includes(o.status)
@@ -182,7 +193,6 @@ const MyOrdersPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
-      <DeliveryAlert />
       {/* Header */}
       <div className="bg-white border-b border-gray-100 sticky top-0 z-10 shadow-sm">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">

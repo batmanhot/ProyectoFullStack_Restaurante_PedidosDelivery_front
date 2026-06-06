@@ -1,5 +1,21 @@
 import { storage } from './storageService';
-export { ORDER_STATUS } from '../constants/orderStatus';
+import { ORDER_STATUS } from '../constants/orderStatus';
+export { ORDER_STATUS };
+
+const STATUS_SEQUENCE = [
+  ORDER_STATUS.PENDING,
+  ORDER_STATUS.CONFIRMED,
+  ORDER_STATUS.PREPARING,
+  ORDER_STATUS.ON_WAY,
+  ORDER_STATUS.DELIVERED,
+];
+
+const isValidTransition = (fromStatus, toStatus) => {
+  if (toStatus === ORDER_STATUS.CANCELLED) return true;
+  const fromIdx = STATUS_SEQUENCE.indexOf(fromStatus);
+  const toIdx = STATUS_SEQUENCE.indexOf(toStatus);
+  return fromIdx !== -1 && toIdx === fromIdx + 1;
+};
 
 export const orderService = {
   getOrders: () => storage.get('orders') || [],
@@ -12,7 +28,7 @@ export const orderService = {
     const orders = orderService.getOrders();
     const newOrder = {
       ...orderData,
-      id: `ORD-${Date.now()}`,
+      id: `ORD-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
       orderNumber: orders.length + 1001,
       status: ORDER_STATUS.PENDING,
       createdAt: new Date().toISOString(),
@@ -21,11 +37,15 @@ export const orderService = {
     return newOrder;
   },
 
-  updateStatus: (id, status) => {
+  updateStatus: (id, status, extra = {}) => {
     const orders = orderService.getOrders();
-    const extra = status === ORDER_STATUS.ON_WAY ? { departureTime: new Date().toISOString() } : {};
+    const order = orders.find(o => o.id === id);
+    if (!order) return null;
+    if (!isValidTransition(order.status, status)) return order;
+
+    const autoExtra = status === ORDER_STATUS.ON_WAY ? { departureTime: new Date().toISOString() } : {};
     const updated = orders.map(o =>
-      o.id === id ? { ...o, status, updatedAt: new Date().toISOString(), ...extra } : o
+      o.id === id ? { ...o, status, updatedAt: new Date().toISOString(), ...autoExtra, ...extra } : o
     );
     storage.set('orders', updated);
     return updated.find(o => o.id === id);

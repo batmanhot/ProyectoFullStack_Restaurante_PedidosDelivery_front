@@ -2,12 +2,45 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useApp } from '../context/AppContext';
+import { useCart } from '../context/CartContext';
 import { orderService } from '../services/orderService';
+import { productService } from '../services/productService';
 import { formatMoney } from '../utils/format';
+
+const UPSELL_CATEGORIES = ['bebidas', 'complementos', 'postres'];
+
+const UpsellSuggestions = ({ cart, onAdd }) => {
+  const cartIds = new Set(cart.map(i => i.id));
+  const candidates = productService.getProducts()
+    .filter(p => p.available !== false && UPSELL_CATEGORIES.includes(p.category) && !cartIds.has(p.id))
+    .slice(0, 4);
+
+  if (candidates.length === 0) return null;
+
+  return (
+    <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-2xl">
+      <p className="text-xs font-black text-amber-700 mb-2">🍟 Completa tu pedido:</p>
+      <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+        {candidates.map(p => (
+          <button
+            key={p.id}
+            onClick={() => onAdd(p)}
+            className="shrink-0 flex items-center gap-2 bg-white border border-amber-200 hover:border-amber-400 px-3 py-1.5 rounded-xl text-xs font-semibold text-gray-700 hover:bg-amber-50 transition-all active:scale-95"
+          >
+            <span className="font-black text-amber-600">+</span>
+            <span className="max-w-20 truncate">{p.name}</span>
+            <span className="text-green-600 font-bold shrink-0">{formatMoney(p.price)}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 const CartModal = ({ isOpen, onClose, cart, onRemove, onUpdateQuantity, onClearCart, onShowToast }) => {
   const { user } = useAuth();
   const { config } = useApp();
+  const { addToCart } = useCart();
 
   const [step, setStep] = useState('cart');
   const [isProcessing, setIsProcessing] = useState(false);
@@ -162,6 +195,23 @@ const CartModal = ({ isOpen, onClose, cart, onRemove, onUpdateQuantity, onClearC
           {/* STEP CART */}
           {step === 'cart' && (
             <div className="space-y-4">
+              {/* Info delivery + cremas */}
+              <div className="flex flex-wrap gap-2">
+                <div className="flex items-center gap-2 bg-orange-50 border border-orange-200 text-orange-700 text-xs font-bold px-3 py-2 rounded-xl">
+                  <span>🛵</span>
+                  <span>
+                    Costo de delivery:{' '}
+                    {deliveryCost > 0
+                      ? <span className="text-orange-800">S/{deliveryCost.toFixed(2)}</span>
+                      : <span className="text-green-700 font-black">¡Gratis!</span>}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 bg-green-50 border border-green-200 text-green-700 text-xs font-semibold px-3 py-2 rounded-xl">
+                  <span>🎁</span>
+                  <span>Cremas de cortesía incluidas</span>
+                </div>
+              </div>
+
               {cart.length === 0 ? (
                 <p className="text-center text-gray-400 py-10">Su carrito está vacío.</p>
               ) : (
@@ -187,6 +237,15 @@ const CartModal = ({ isOpen, onClose, cart, onRemove, onUpdateQuantity, onClearC
                       </div>
                     ))}
                   </div>
+
+                  <UpsellSuggestions
+                    cart={cart}
+                    onAdd={(p) => {
+                      const result = addToCart(p);
+                      if (result?.ok === false) onShowToast && onShowToast(result.error, 'error');
+                      else onShowToast && onShowToast(`¡${p.name} añadido!`);
+                    }}
+                  />
 
                   <div className="pt-4 space-y-3">
                     <p className="text-sm font-bold text-gray-700">Datos de Entrega:</p>
@@ -305,6 +364,9 @@ const CartModal = ({ isOpen, onClose, cart, onRemove, onUpdateQuantity, onClearC
                 <div className="pt-2 text-xs text-gray-500 space-y-1">
                   <p><strong>Entrega:</strong> {formData.address}</p>
                   <p><strong>Pago:</strong> {paymentLabel[formData.pago]}</p>
+                  <p className="flex items-center gap-1 text-green-600 font-semibold mt-1">
+                    <span>🎁</span> Cremas de cortesía incluidas
+                  </p>
                 </div>
               </div>
             </div>

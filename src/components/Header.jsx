@@ -25,78 +25,112 @@ const Header = () => {
 
       {/* Hero image */}
       <div
-        className="relative h-80 md:h-120 bg-cover bg-center"
+        className="relative h-96 md:h-128 bg-cover bg-center"
         style={{ backgroundImage: `url('${config.headerImage}')` }}
       >
-        {/* Gradient overlay — cálido, no plano negro */}
-        <div className="absolute inset-0 bg-linear-to-b from-black/50 via-black/40 to-black/75" />
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-linear-to-b from-black/55 via-black/35 to-black/85" />
 
         <Navbar />
 
         {/* Contenido central */}
-        <div className="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-4 pt-12">
+        <div className="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-4 pt-16">
+
+          {/* Logo */}
           <div className="relative mb-4">
             <img
               src={config.logo}
               alt={`Logo ${config.nombre}`}
-              className="w-28 h-28 md:w-36 md:h-36 object-cover rounded-full shadow-2xl ring-4 ring-white/30"
+              className="w-20 h-20 md:w-28 md:h-28 object-cover rounded-full shadow-2xl ring-4 ring-white/25"
             />
             {config.acceptingOrders && (
-              <span className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 border-2 border-white rounded-full" title="Abierto" />
+              <span className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-400 border-2 border-white rounded-full animate-pulse" title="Abierto" />
             )}
           </div>
 
-          <h1 className="text-3xl md:text-5xl font-black uppercase tracking-widest drop-shadow-lg">
+          {/* Nombre — el foco principal */}
+          <h1 className="text-4xl md:text-6xl font-black uppercase tracking-[0.12em] drop-shadow-2xl leading-none">
             {config.nombre}
           </h1>
-          <p className="mt-1 text-white/80 text-sm md:text-base max-w-sm">{config.slogan}</p>
 
-          {/* Stats row */}
-          <div className="flex items-center gap-4 mt-4 flex-wrap justify-center">
-            <div className="flex items-center gap-1 bg-white/15 backdrop-blur-sm px-3 py-1.5 rounded-full text-sm font-semibold">
+          {/* Línea divisora roja — ancla visual */}
+          <div className="w-14 h-0.5 bg-red-500 rounded-full my-4" />
+
+          {/* Tagline — limpio, una sola idea */}
+          <p className="text-sm md:text-base font-medium text-white/85 tracking-wide max-w-xs leading-relaxed">
+            {config.slogan || 'Todo tu antojo en un solo lugar'}
+          </p>
+
+          {/* Stats — inline, sin pills pesados */}
+          <div className="flex items-center gap-3 mt-5 text-xs md:text-sm font-semibold text-white/90 flex-wrap justify-center">
+            <div className="flex items-center gap-1">
               <StarIcon />
               <span>{config.rating || '4.8'}</span>
-              <span className="text-white/60 text-xs">({config.totalReviews || '200+'})</span>
+              <span className="text-white/50 ml-0.5">({config.totalReviews || '200+'})</span>
             </div>
-            <div className="flex items-center gap-1.5 bg-white/15 backdrop-blur-sm px-3 py-1.5 rounded-full text-sm font-semibold">
+            <span className="text-white/25">|</span>
+            <div className="flex items-center gap-1.5">
               <span>🛵</span>
               <span>{config.deliveryTime || '30-45 min'}</span>
             </div>
-            <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-semibold ${config.acceptingOrders ? 'bg-green-500/80' : 'bg-red-600/80'} backdrop-blur-sm`}>
-              <span>{config.acceptingOrders ? '🟢' : '🔴'}</span>
+            <span className="text-white/25">|</span>
+            <div className={`flex items-center gap-1.5 font-bold ${config.acceptingOrders ? 'text-green-400' : 'text-red-400'}`}>
+              <span className={`w-1.5 h-1.5 rounded-full ${config.acceptingOrders ? 'bg-green-400' : 'bg-red-400'}`} />
               <span>{config.acceptingOrders ? 'Abierto ahora' : 'Cerrado'}</span>
             </div>
           </div>
 
-          {/* CTA */}
-          {config.acceptingOrders && (
-            <button
-              onClick={scrollToMenu}
-              className="mt-6 bg-red-600 hover:bg-red-700 active:scale-95 text-white font-black px-8 py-3 rounded-2xl shadow-xl shadow-red-900/40 transition-all flex items-center gap-2 text-sm md:text-base"
-            >
-              Ver Menú Completo
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-              </svg>
-            </button>
-          )}
+          {/* CTA único dominante */}
+          <div className="mt-8 flex flex-col items-center gap-3">
+            {config.acceptingOrders ? (
+              <>
+                <button
+                  onClick={scrollToMenu}
+                  className="bg-red-600 hover:bg-red-700 active:scale-95 text-white font-black px-10 py-4 rounded-2xl shadow-2xl shadow-red-900/60 transition-all text-base md:text-lg flex items-center gap-2.5 tracking-wide"
+                >
+                  🛒 Pedir Ahora
+                </button>
+                <button
+                  onClick={scrollToMenu}
+                  className="text-white/55 hover:text-white/90 text-xs font-medium transition-colors hover:underline underline-offset-4"
+                >
+                  Ver la carta completa →
+                </button>
+              </>
+            ) : (
+              <div className="bg-black/40 border border-white/20 text-white/70 px-6 py-3 rounded-2xl text-sm font-semibold backdrop-blur-sm">
+                ⏰ Cerrado por ahora — vuelve pronto
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
-      {/* Trust strip */}
+      {/* Trust strip mejorado */}
       <div className="bg-gray-900 border-t border-white/10">
-        <div className="container mx-auto px-4 py-3 flex items-center justify-center gap-6 flex-wrap">
-          {[
-            { icon: '✅', text: 'Pago 100% seguro' },
-            { icon: '🛵', text: `Entrega ${config.deliveryTime || '30-45 min'}` },
-            { icon: '📱', text: 'Pedido por WhatsApp' },
-            { icon: '🍔', text: 'Ingredientes frescos' },
-          ].map(item => (
-            <div key={item.text} className="flex items-center gap-1.5 text-white/70 text-xs font-medium">
-              <span>{item.icon}</span>
-              <span>{item.text}</span>
-            </div>
-          ))}
+        <div className="container mx-auto px-4 py-3 flex items-center justify-center gap-5 flex-wrap">
+          <div className="flex items-center gap-1.5 text-white/70 text-xs font-medium">
+            <span>💵</span><span>Pago contra entrega</span>
+          </div>
+          <div className="flex items-center gap-1.5 bg-orange-500/20 border border-orange-400/40 text-orange-300 text-xs font-bold px-3 py-1 rounded-full">
+            <span>🛵</span>
+            <span>
+              Delivery{' '}
+              {config.deliveryCost > 0
+                ? <span className="text-orange-200">S/{Number(config.deliveryCost).toFixed(2)}</span>
+                : <span className="text-green-300">Gratis</span>}
+              {config.deliveryTime ? ` · ${config.deliveryTime}` : ''}
+            </span>
+          </div>
+          <div className="flex items-center gap-1.5 text-white/70 text-xs font-medium">
+            <span>🎁</span><span>Cremas de cortesía</span>
+          </div>
+          <div className="flex items-center gap-1.5 text-white/70 text-xs font-medium">
+            <span>🍔</span><span>Ingredientes frescos</span>
+          </div>
+          <div className="flex items-center gap-1.5 text-white/70 text-xs font-medium">
+            <span>📱</span><span>Consultas al WhatsApp</span>
+          </div>
         </div>
       </div>
     </header>

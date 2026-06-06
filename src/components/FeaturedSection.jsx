@@ -2,10 +2,10 @@ import { productService } from '../services/productService';
 import { formatMoney } from '../utils/format';
 
 const BADGE_STYLES = {
-  popular:   { label: '🔥 Popular',   class: 'bg-orange-500' },
-  nuevo:     { label: '✨ Nuevo',     class: 'bg-blue-500' },
-  oferta:    { label: '🏷️ Oferta',   class: 'bg-green-500' },
-  destacado: { label: '⭐ Chef',      class: 'bg-yellow-500' },
+  popular:   { label: '🔥 Más Vendido', class: 'bg-orange-500' },
+  nuevo:     { label: '✨ Nuevo',        class: 'bg-blue-500' },
+  oferta:    { label: '🏷️ Oferta',      class: 'bg-green-500' },
+  destacado: { label: '⭐ Chef',         class: 'bg-yellow-500' },
 };
 
 const FeaturedCard = ({ product, onAddToCart, onViewProduct }) => {
@@ -13,10 +13,10 @@ const FeaturedCard = ({ product, onAddToCart, onViewProduct }) => {
 
   return (
     <div
-      className="relative shrink-0 w-52 md:w-60 bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group border border-gray-100 hover:-translate-y-1 cursor-pointer"
+      className="relative shrink-0 w-56 md:w-64 bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group border border-gray-100 hover:-translate-y-1 cursor-pointer"
       onClick={() => onViewProduct(product)}
     >
-      <div className="relative h-36 overflow-hidden">
+      <div className="relative h-44 overflow-hidden">
         <img
           loading="lazy"
           src={product.image}
@@ -31,7 +31,7 @@ const FeaturedCard = ({ product, onAddToCart, onViewProduct }) => {
           </span>
         ) : (
           <span className="absolute top-2 left-2 text-[10px] font-black text-white px-2 py-0.5 rounded-full bg-red-600">
-            ⭐ Destacado
+            ⭐ Favorito
           </span>
         )}
 
@@ -62,30 +62,52 @@ const FeaturedSection = ({ onAddToCart, onViewProduct }) => {
   const featured = productService.getFeaturedProducts();
   if (featured.length === 0) return null;
 
+  // Duplicar ítems para el loop seamless — triplicar si hay pocos
+  const items = featured.length < 4
+    ? [...featured, ...featured, ...featured]
+    : [...featured, ...featured];
+
   return (
-    <section className="mb-10">
-      <div className="flex items-center justify-between mb-5 px-1">
+    <section>
+      <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-2xl font-black text-gray-800 flex items-center gap-2">
-            🔥 <span>Los Más Pedidos</span>
+          <div className="flex items-center gap-2 mb-1">
+            <span className="inline-block w-1 h-6 bg-red-600 rounded-full" />
+            <span className="text-xs font-black uppercase tracking-widest text-red-600">Lo más pedido</span>
+          </div>
+          <h2 className="text-2xl md:text-3xl font-black text-gray-900 leading-tight">
+            Los Favoritos de Nuestros Clientes
           </h2>
-          <p className="text-gray-400 text-sm mt-0.5">Los favoritos de nuestros clientes</p>
+          <p className="text-gray-400 text-sm mt-1">Elegidos semana a semana — añade al carrito con un clic</p>
         </div>
-        <div className="hidden md:flex items-center gap-1 text-xs text-gray-400 bg-gray-100 px-3 py-1.5 rounded-full">
-          <span>Desliza</span>
-          <span>→</span>
+        <div className="hidden md:flex items-center gap-1.5 text-xs text-gray-400 bg-gray-100 px-3 py-1.5 rounded-full shrink-0 animate-pulse">
+          <span>En movimiento</span>
+          <span>•</span>
+          <span>Hover para pausar</span>
         </div>
       </div>
 
-      <div className="flex gap-4 overflow-x-auto pb-3 scrollbar-hide px-1">
-        {featured.map(product => (
-          <FeaturedCard
-            key={product.id}
-            product={product}
-            onAddToCart={onAddToCart}
-            onViewProduct={onViewProduct}
-          />
-        ))}
+      {/* Contenedor con fade lateral y overflow oculto */}
+      <div className="relative overflow-hidden">
+        {/* Fade izquierdo */}
+        <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-stone-50 to-transparent z-10 pointer-events-none" />
+        {/* Fade derecho */}
+        <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-stone-50 to-transparent z-10 pointer-events-none" />
+
+        {/* Track animado — se pausa al hacer hover */}
+        <div
+          className="flex gap-4 pb-4 animate-marquee hover:[animation-play-state:paused]"
+          style={{ width: 'max-content' }}
+        >
+          {items.map((product, i) => (
+            <FeaturedCard
+              key={`${product.id}-${i}`}
+              product={product}
+              onAddToCart={onAddToCart}
+              onViewProduct={onViewProduct}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

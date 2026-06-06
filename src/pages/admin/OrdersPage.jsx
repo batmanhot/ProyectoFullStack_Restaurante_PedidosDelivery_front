@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { orderService, ORDER_STATUS } from '../../services/orderService';
 import { STATUS_COLORS } from '../../constants/orderStatus';
-import { storage } from '../../services/storageService';
 import { useApp } from '../../context/AppContext';
 import { formatMoney } from '../../utils/format';
 
@@ -49,12 +48,7 @@ const OrdersPage = () => {
     if (!deliveryPerson.trim()) return;
     const { id, order } = deliveryModal;
 
-    orderService.updateStatus(id, ORDER_STATUS.ON_WAY);
-    const all = storage.get('orders') || [];
-    const updatedOrder = all.find(o => o.id === id);
-    storage.set('orders', all.map(o =>
-      o.id === id ? { ...o, deliveryPerson: deliveryPerson.trim() } : o
-    ));
+    orderService.updateStatus(id, ORDER_STATUS.ON_WAY, { deliveryPerson: deliveryPerson.trim() });
 
     if (sendWA && order?.phone) {
       const now = new Date().toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit' });

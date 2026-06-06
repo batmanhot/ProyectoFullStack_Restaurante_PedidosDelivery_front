@@ -3,7 +3,7 @@ import { productService } from '../../services/productService';
 import { useApp } from '../../context/AppContext';
 import { formatMoney } from '../../utils/format';
 
-const EMPTY_FORM = { name: '', price: '', category: '', image: '', description: '', available: true, featured: false, badge: '' };
+const EMPTY_FORM = { name: '', price: '', category: '', image: '', description: '', available: true, featured: false, badge: '', originalPrice: '', comboTag: '' };
 const BADGE_OPTIONS = [
   { value: '',         label: 'Sin badge' },
   { value: 'popular',  label: '🔥 Popular' },
@@ -38,7 +38,11 @@ const ProductsPage = () => {
       showToast('Completa los campos obligatorios', 'error');
       return;
     }
-    const data = { ...form, price: parseFloat(form.price) };
+    const data = {
+      ...form,
+      price: parseFloat(form.price),
+      originalPrice: form.originalPrice ? parseFloat(form.originalPrice) : undefined,
+    };
     if (editId) {
       productService.updateProduct(editId, data);
       showToast('Producto actualizado');
@@ -221,6 +225,34 @@ const ProductsPage = () => {
                     <span className="text-sm font-bold text-yellow-700">⭐ Mostrar en "Los Más Pedidos"</span>
                   </label>
                 </div>
+
+                {form.category === 'combos' && (
+                  <>
+                    <div>
+                      <label className="block text-xs font-bold text-gray-500 mb-1">Precio original S/. <span className="text-gray-400 font-normal">(tachado)</span></label>
+                      <input
+                        type="number" min="0" step="0.5"
+                        value={form.originalPrice}
+                        onChange={e => setForm({ ...form, originalPrice: e.target.value })}
+                        placeholder="Ej: 88.00"
+                        className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-red-500"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-bold text-gray-500 mb-1">Etiqueta del combo <span className="text-gray-400 font-normal">(badge)</span></label>
+                      <input
+                        type="text"
+                        value={form.comboTag}
+                        onChange={e => setForm({ ...form, comboTag: e.target.value })}
+                        placeholder="Ej: Más popular, ¡Más ahorro!, Para la familia"
+                        className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-red-500"
+                      />
+                    </div>
+                    <div className="col-span-2 p-3 bg-blue-50 rounded-xl border border-blue-100 text-xs text-blue-700">
+                      <strong>Tip:</strong> Escribe los ingredientes separados por <code className="bg-blue-100 px-1 rounded">+</code> en la descripción para que aparezcan como lista. Usa ⭐ Destacado para resaltar este combo.
+                    </div>
+                  </>
+                )}
               </div>
               <div className="flex gap-3 pt-2">
                 <button onClick={() => setModal(null)} className="flex-1 py-3 border-2 border-gray-200 text-gray-600 font-bold rounded-2xl hover:bg-gray-50 transition-all">Cancelar</button>

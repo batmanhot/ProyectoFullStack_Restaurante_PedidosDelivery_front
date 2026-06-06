@@ -1,13 +1,19 @@
 import { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import CartBar from '../components/CartBar';
-import DeliveryAlert from '../components/DeliveryAlert';
 import DeliveryBanner from '../components/DeliveryBanner';
 import CartModal from '../components/CartModal';
 import ProductViewModal from '../components/ProductViewModal';
 import CategoryFilter from '../components/CategoryFilter';
 import PaginatedSection from '../components/PaginatedSection';
 import FeaturedSection from '../components/FeaturedSection';
+import BenefitsSection from '../components/BenefitsSection';
+import TrustIndicators from '../components/TrustIndicators';
+import TestimonialsSection from '../components/TestimonialsSection';
+import ComboSection from '../components/ComboSection';
+import PromotionsSection from '../components/PromotionsSection';
+import WelcomeBackSection from '../components/WelcomeBackSection';
+import WhatsAppButton from '../components/WhatsAppButton';
 import Footer from '../components/Footer';
 import Toast from '../components/Toast';
 import { useCart } from '../context/CartContext';
@@ -36,25 +42,43 @@ const HomePage = () => {
     else showToast('¡Añadido al carrito!');
   };
 
+  const scrollToMenu = () => {
+    document.getElementById('menu-section')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   const availableProducts = products.filter(p => p.available !== false);
+  const menuCategories = categories.filter(c => c.id !== 'combos');
 
   return (
     <div className="min-h-screen bg-stone-50 font-sans selection:bg-red-100 selection:text-red-900 flex flex-col">
       <Header />
+
+      {/* Bienvenida para clientes logueados — justo después del hero */}
+      <WelcomeBackSection onScrollToMenu={scrollToMenu} />
+
       <DeliveryBanner />
 
-      <main id="menu-section" className="flex-1 container mx-auto px-4 pt-10 pb-6">
+      {/* Carrusel de destacados — lo primero que ve el cliente son los platos */}
+      {!loading && (
+        <div className="bg-stone-50 border-b border-stone-100">
+          <div className="container mx-auto px-4 py-10">
+            <FeaturedSection
+              onAddToCart={handleAddToCart}
+              onViewProduct={setViewProduct}
+            />
+          </div>
+        </div>
+      )}
 
-        {/* Featured / Más Pedidos */}
-        {!loading && (
-          <FeaturedSection
-            onAddToCart={handleAddToCart}
-            onViewProduct={setViewProduct}
-          />
-        )}
+      {/* Combos especiales */}
+      {!loading && (
+        <ComboSection onScrollToMenu={scrollToMenu} onAddToCart={handleAddToCart} />
+      )}
+
+      <main id="menu-section" className="flex-1 container mx-auto px-4 pt-8 pb-6">
 
         {/* Separador + título carta */}
-        <div className="flex items-center gap-4 mb-6">
+        <div className="flex items-center gap-4 mb-6 mt-4">
           <div className="flex-1 h-px bg-gray-200" />
           <h2 className="text-xl font-black text-gray-700 flex items-center gap-2 shrink-0">
             <span>🍽️</span> Nuestra Carta Completa
@@ -64,7 +88,7 @@ const HomePage = () => {
 
         {/* Category filter */}
         <CategoryFilter
-          categories={categories}
+          categories={menuCategories}
           activeCategory={activeCategory}
           onCategoryChange={setActiveCategory}
         />
@@ -78,7 +102,7 @@ const HomePage = () => {
         ) : (
           <div className="space-y-2">
             {activeCategory === 'all'
-              ? categories.map(cat => (
+              ? menuCategories.map(cat => (
                 <PaginatedSection
                   key={cat.id}
                   category={cat}
@@ -89,7 +113,7 @@ const HomePage = () => {
               ))
               : (
                 <PaginatedSection
-                  category={categories.find(c => c.id === activeCategory)}
+                  category={menuCategories.find(c => c.id === activeCategory)}
                   products={availableProducts.filter(p => p.category === activeCategory)}
                   onAddToCart={handleAddToCart}
                   onViewProduct={setViewProduct}
@@ -100,9 +124,24 @@ const HomePage = () => {
         )}
       </main>
 
+      {/* Indicadores de confianza */}
+      {!loading && <TrustIndicators />}
+
+      {/* Promociones */}
+      {!loading && <PromotionsSection onScrollToMenu={scrollToMenu} />}
+
+      {/* Nuestros Diferenciales — refuerzo de confianza al final del recorrido */}
+      {!loading && <BenefitsSection />}
+
+      {/* Testimonios */}
+      {!loading && <TestimonialsSection />}
+
       {!loading && <Footer />}
 
       <CartBar count={count} onClick={() => setIsCartOpen(true)} />
+
+      {/* Botón flotante WhatsApp */}
+      {!loading && <WhatsAppButton />}
 
       <CartModal
         isOpen={isCartOpen}
@@ -122,7 +161,6 @@ const HomePage = () => {
       />
 
       {toast && <Toast message={toast.message} type={toast.type} onClose={closeToast} />}
-      <DeliveryAlert />
     </div>
   );
 };

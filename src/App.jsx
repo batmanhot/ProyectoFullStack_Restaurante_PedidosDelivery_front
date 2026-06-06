@@ -3,6 +3,7 @@ import { AuthProvider } from './context/AuthContext';
 import { AppProvider } from './context/AppContext';
 import { CartProvider } from './context/CartContext';
 import ProtectedRoute from './components/ProtectedRoute';
+import DeliveryAlert from './components/DeliveryAlert';
 
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
@@ -22,6 +23,7 @@ function App() {
       <AuthProvider>
         <AppProvider>
           <CartProvider>
+            <DeliveryAlert />
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/login" element={<LoginPage />} />
