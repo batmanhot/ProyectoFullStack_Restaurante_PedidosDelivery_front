@@ -3,7 +3,7 @@ import { productService } from '../../services/productService';
 import { useApp } from '../../context/AppContext';
 import { formatMoney } from '../../utils/format';
 
-const EMPTY_FORM = { name: '', price: '', category: '', image: '', description: '', available: true, featured: false, badge: '', originalPrice: '', comboTag: '' };
+const EMPTY_FORM = { name: '', price: '', category: '', image: '', description: '', available: true, featured: false, upsell: false, badge: '', originalPrice: '', comboTag: '' };
 const BADGE_OPTIONS = [
   { value: '',         label: 'Sin badge' },
   { value: 'popular',  label: '🔥 Popular' },
@@ -76,6 +76,12 @@ const ProductsPage = () => {
     refresh();
   };
 
+  const handleToggleUpsell = (id) => {
+    const p = products.find(x => x.id === id);
+    productService.updateProduct(id, { upsell: !p.upsell });
+    refresh();
+  };
+
   return (
     <div className="p-8">
       <div className="flex items-center justify-between mb-6">
@@ -114,6 +120,7 @@ const ProductsPage = () => {
               <th className="text-left text-xs font-bold text-gray-400 uppercase tracking-wider px-4 py-4">Precio</th>
               <th className="text-left text-xs font-bold text-gray-400 uppercase tracking-wider px-4 py-4">Estado</th>
               <th className="text-left text-xs font-bold text-gray-400 uppercase tracking-wider px-4 py-4">Destacar</th>
+              <th className="text-left text-xs font-bold text-gray-400 uppercase tracking-wider px-4 py-4">Upsell</th>
               <th className="text-left text-xs font-bold text-gray-400 uppercase tracking-wider px-4 py-4">Badge</th>
               <th className="text-right text-xs font-bold text-gray-400 uppercase tracking-wider px-6 py-4">Acciones</th>
             </tr>
@@ -153,6 +160,15 @@ const ProductsPage = () => {
                       className={`px-3 py-1 rounded-full text-xs font-bold transition-all ${p.featured ? 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200' : 'bg-gray-100 text-gray-400 hover:bg-gray-200'}`}
                     >
                       {p.featured ? '⭐ Sí' : '☆ No'}
+                    </button>
+                  </td>
+                  <td className="px-4 py-4">
+                    <button
+                      onClick={() => handleToggleUpsell(p.id)}
+                      title={p.upsell ? 'Quitar de Completa tu pedido' : 'Mostrar en Completa tu pedido'}
+                      className={`px-3 py-1 rounded-full text-xs font-bold transition-all ${p.upsell ? 'bg-amber-100 text-amber-700 hover:bg-amber-200' : 'bg-gray-100 text-gray-400 hover:bg-gray-200'}`}
+                    >
+                      {p.upsell ? '🍟 Sí' : '— No'}
                     </button>
                   </td>
                   <td className="px-4 py-4">
@@ -223,6 +239,12 @@ const ProductsPage = () => {
                   <label className="flex items-center gap-2 cursor-pointer">
                     <input type="checkbox" checked={!!form.featured} onChange={e => setForm({ ...form, featured: e.target.checked })} className="w-4 h-4 accent-yellow-500" />
                     <span className="text-sm font-bold text-yellow-700">⭐ Mostrar en "Los Más Pedidos"</span>
+                  </label>
+                </div>
+                <div className="flex items-center gap-3 p-3 bg-amber-50 rounded-xl border border-amber-100">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" checked={!!form.upsell} onChange={e => setForm({ ...form, upsell: e.target.checked })} className="w-4 h-4 accent-amber-500" />
+                    <span className="text-sm font-bold text-amber-700">🍟 Mostrar en "Completa tu pedido"</span>
                   </label>
                 </div>
 

@@ -58,9 +58,9 @@ export const PRODUCTS = [
     { id: 503, category: 'menu_dia', name: 'Arroz con Pollo', price: 20.00, image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=500&auto=format&fit=crop', description: 'Sabroso arroz verde con culantro, presa de pollo y sarsa criolla.' },
 
     // Bebidas
-    { id: 101, category: 'bebidas', name: 'Inca Kola 500ml', price: 5.00, image: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?q=80&w=500&auto=format&fit=crop', description: 'La bebida de sabor nacional, heladita.' },
-    { id: 102, category: 'bebidas', name: 'Coca Cola 500ml', price: 5.00, image: 'https://images.unsplash.com/photo-1554866585-cd94860890b7?q=80&w=500&auto=format&fit=crop', description: 'Refrescante y clásica Coca Cola.' },
-    { id: 103, category: 'bebidas', name: 'Chicha Morada Casera', price: 7.00, image: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?q=80&w=500&auto=format&fit=crop', description: 'Preparada con maiz morado, piña y un toque de limón.' },
+    { id: 101, category: 'bebidas', name: 'Inca Kola 500ml', price: 5.00, upsell: true, image: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?q=80&w=500&auto=format&fit=crop', description: 'La bebida de sabor nacional, heladita.' },
+    { id: 102, category: 'bebidas', name: 'Coca Cola 500ml', price: 5.00, upsell: true, image: 'https://images.unsplash.com/photo-1554866585-cd94860890b7?q=80&w=500&auto=format&fit=crop', description: 'Refrescante y clásica Coca Cola.' },
+    { id: 103, category: 'bebidas', name: 'Chicha Morada Casera', price: 7.00, upsell: true, image: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?q=80&w=500&auto=format&fit=crop', description: 'Preparada con maiz morado, piña y un toque de limón.' },
 
     // Postres
     { id: 201, category: 'postres', name: 'Tres Leches', price: 12.00, image: 'https://images.unsplash.com/photo-1549440386-30238ee59819?q=80&w=500&auto=format&fit=crop', description: 'Bizcocho bañado en tres tipos de leche, super húmedo.' },
@@ -73,7 +73,7 @@ export const PRODUCTS = [
 
     // Complementos
     { id: 901, category: 'complementos', name: 'Vaso de Chicha Morada', price: 4.00, image: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?q=80&w=500&auto=format&fit=crop', description: 'Refrescante vaso de chicha morada artesanal.' },
-    { id: 902, category: 'complementos', name: 'Canchita Serrana', price: 3.00, image: 'https://images.unsplash.com/photo-1599487488170-d11ec93a730d?q=80&w=500&auto=format&fit=crop', description: 'Porción de canchita recién tostada y saladita.' },
+    { id: 902, category: 'complementos', name: 'Canchita Serrana', price: 3.00, upsell: true, image: 'https://images.unsplash.com/photo-1599487488170-d11ec93a730d?q=80&w=500&auto=format&fit=crop', description: 'Porción de canchita recién tostada y saladita.' },
     { id: 903, category: 'complementos', name: 'Crema de Ají de la Casa', price: 2.00, image: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=500&auto=format&fit=crop', description: 'Nuestro ají especial secreto, ideal para acompañar.' },
     { id: 904, category: 'complementos', name: 'Mayonesa Artesanal', price: 2.00, image: 'https://images.unsplash.com/photo-1588860322c02-422026e5fc3a?q=80&w=500&auto=format&fit=crop', description: 'Mayonesa cremosa hecha en casa.' },
     { id: 905, category: 'complementos', name: 'Salsa Huancaína', price: 3.00, image: 'https://images.unsplash.com/photo-1590137876181-2a5a7e34030d?q=80&w=500&auto=format&fit=crop', description: 'Clásica salsa peruana a base de ají amarillo y queso.' },

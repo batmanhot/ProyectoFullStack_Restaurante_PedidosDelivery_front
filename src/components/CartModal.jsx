@@ -7,12 +7,10 @@ import { orderService } from '../services/orderService';
 import { productService } from '../services/productService';
 import { formatMoney } from '../utils/format';
 
-const UPSELL_CATEGORIES = ['bebidas', 'complementos', 'postres'];
-
 const UpsellSuggestions = ({ cart, onAdd }) => {
   const cartIds = new Set(cart.map(i => i.id));
   const candidates = productService.getProducts()
-    .filter(p => p.available !== false && UPSELL_CATEGORIES.includes(p.category) && !cartIds.has(p.id))
+    .filter(p => p.available !== false && p.upsell === true && !cartIds.has(p.id))
     .slice(0, 4);
 
   if (candidates.length === 0) return null;
